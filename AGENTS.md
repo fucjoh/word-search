@@ -7,3 +7,12 @@ This repository is intentionally minimal and does not use any build tools or aut
 - If future instructions mention running tests, you can safely skip them because no test suite is present.
 
 You are free to edit or extend the web page directly in place.
+
+
+All code changes should be accompanied by a test run using:
+
+```bash
+node test.js
+```
+
+The test script must pass before committing.

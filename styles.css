@@ -6,3 +6,8 @@ body {
 input {
     margin-right: 10px;
 }
+
+#output {
+    margin-top: 20px;
+    white-space: pre-wrap;
+}
