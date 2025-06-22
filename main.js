@@ -26,8 +26,28 @@ async function loadDictionary(path = 'german.dic') {
 }
 let output;
 
+function highlightChange(prev, curr) {
+    let i = 0, j = 0;
+    while (i < prev.length && j < curr.length && prev[i] === curr[j]) {
+        i++; j++;
+    }
+    if (j < curr.length) {
+        return curr.slice(0, j) + '<span class="diff">' + curr[j] + '</span>' + curr.slice(j + 1);
+    }
+    return curr;
+}
+
 function formatChainHTML(chain) {
-    return '<ol class="chain">' + chain.map(w => `<li>${w}</li>`).join('') + '</ol>';
+    const items = [];
+    for (let i = 0; i < chain.length; i++) {
+        const word = chain[i];
+        if (i === 0) {
+            items.push(`<li>${word}</li>`);
+        } else {
+            items.push(`<li>${highlightChange(chain[i - 1], word)}</li>`);
+        }
+    }
+    return '<ol class="chain">' + items.join('') + '</ol>';
 }
 
 function performSearch() {
@@ -76,6 +96,7 @@ if (typeof module !== 'undefined') {
         loadDictionary,
         getDictionary: () => dictionary,
         isDictionaryLoaded: () => dictionaryLoaded,
-        formatChainHTML
+        formatChainHTML,
+        highlightChange
     };
 }
