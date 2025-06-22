@@ -18,6 +18,8 @@ fetch('german.dic')
 
 const output = document.getElementById('output');
 
+function performSearch() {
+
     const value1 = document.getElementById('field1').value.trim().toLowerCase();
     const value2 = document.getElementById('field2').value.trim().toLowerCase();
 
