@@ -48,3 +48,7 @@ input {
     white-space: pre-wrap;
     text-align: left;
 }
+
+#output ol {
+    padding-left: 20px;
+}

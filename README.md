@@ -2,7 +2,7 @@
 
 This small browser-based tool searches for a chain of German words. A chain consists of words where each successive word differs from the previous one by exactly one added, removed or changed letter. The dictionary is loaded from `german.dic` on page load and the search button stays disabled until the load finished.
 
-Open `index.html` in a browser, enter two words and press **Suchen**. If a chain exists it will be printed, otherwise an error message will be shown.
+Open `index.html` in a browser, enter two words and press **Suchen**. If a chain exists it will be printed as a small ordered list, otherwise an error message will be shown.
 
 ## Tests
 
