@@ -1,7 +1,10 @@
 function preprocessDictionary(words) {
-    const dictionarySet = new Set(words);
+    // Convert all dictionary entries to lowercase to allow case-insensitive
+    // lookups.
+    const normalized = words.map(w => w.toLowerCase());
+    const dictionarySet = new Set(normalized);
     const dictionaryByLength = {};
-    words.forEach(word => {
+    normalized.forEach(word => {
         const len = word.length;
         if (!dictionaryByLength[len]) {
             dictionaryByLength[len] = [];

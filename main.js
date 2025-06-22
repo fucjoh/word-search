@@ -6,7 +6,9 @@ let dictionaryByLength = {};
 fetch('german.dic')
     .then(response => response.text())
     .then(text => {
-        dictionary = text.split(/\r?\n/).filter(Boolean);
+        dictionary = text.split(/\r?\n/)
+            .filter(Boolean)
+            .map(word => word.toLowerCase());
         const processed = preprocessDictionary(dictionary);
         dictionarySet = processed.dictionarySet;
         dictionaryByLength = processed.dictionaryByLength;
@@ -16,8 +18,8 @@ fetch('german.dic')
 
 const output = document.getElementById('output');
 
-    const value1 = document.getElementById('field1').value.trim();
-    const value2 = document.getElementById('field2').value.trim();
+    const value1 = document.getElementById('field1').value.trim().toLowerCase();
+    const value2 = document.getElementById('field2').value.trim().toLowerCase();
 
     if (!dictionarySet.has(value1) || !dictionarySet.has(value2)) {
         output.textContent = "Eines der Wörter wurde nicht im Wörterbuch gefunden.";
