@@ -4,7 +4,7 @@ const {
     isOneEditApart,
     findChain
 } = require('./wordchain');
-const { loadDictionary, getDictionary } = require('./main');
+const { loadDictionary, getDictionary, formatChainHTML } = require('./main');
 
 async function run() {
     const words = ['cat', 'cot', 'cog', 'dog'];
@@ -34,6 +34,10 @@ async function run() {
     const { dictionaryByLength: dict4 } = preprocessDictionary(words4);
     const chain5 = findChain('ab', 'cd', dict4);
     assert.strictEqual(chain5, null);
+
+    // test HTML formatting
+    const html = formatChainHTML(['a', 'b']);
+    assert.strictEqual(html, '<ol class="chain"><li>a</li><li>b</li></ol>');
 
     // ensure dictionary words are normalized to lowercase
     const mixedWords = ['Cat', 'cot', 'cog', 'Dog'];

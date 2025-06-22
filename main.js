@@ -26,6 +26,10 @@ async function loadDictionary(path = 'german.dic') {
 }
 let output;
 
+function formatChainHTML(chain) {
+    return '<ol class="chain">' + chain.map(w => `<li>${w}</li>`).join('') + '</ol>';
+}
+
 function performSearch() {
     const value1 = document.getElementById('field1').value.trim().toLowerCase();
     const value2 = document.getElementById('field2').value.trim().toLowerCase();
@@ -39,7 +43,7 @@ function performSearch() {
     setTimeout(() => {
         const chain = findChain(value1, value2, dictionaryByLength);
         if (chain) {
-            output.textContent = chain.join(' -> ');
+            output.innerHTML = formatChainHTML(chain);
         } else {
             output.textContent = 'Keine Wortkette gefunden.';
         }
@@ -71,6 +75,7 @@ if (typeof module !== 'undefined') {
     module.exports = {
         loadDictionary,
         getDictionary: () => dictionary,
-        isDictionaryLoaded: () => dictionaryLoaded
+        isDictionaryLoaded: () => dictionaryLoaded,
+        formatChainHTML
     };
 }
