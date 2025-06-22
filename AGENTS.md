@@ -8,6 +8,11 @@ This repository is intentionally minimal and does not use any build tools or aut
 
 You are free to edit or extend the web page directly in place.
 
+When implementing a new feature, always add corresponding tests. Update
+`test.js` or create new test files so each feature is covered.
+
+README updates are mandatory whenever functionality changes to keep
+documentation current.
 
 All code changes should be accompanied by a test run using:
 
