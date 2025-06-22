@@ -2,6 +2,7 @@ const assert = require('assert');
 const {
     preprocessDictionary,
     isOneEditApart,
+    getNeighborsFromDictionary,
     findChain
 } = require('./wordchain');
 const { loadDictionary, getDictionary, formatChainHTML } = require('./main');
@@ -12,6 +13,9 @@ async function run() {
 
     assert.strictEqual(isOneEditApart('cat', 'cot'), true);
     assert.strictEqual(isOneEditApart('cat', 'dog'), false);
+
+    const neighbors = getNeighborsFromDictionary('cat', dictionaryByLength, new Set(['cat']));
+    assert.deepStrictEqual(neighbors.sort(), ['cot']);
 
     const chain = findChain('cat', 'dog', dictionaryByLength, dictionarySet);
     assert.deepStrictEqual(chain, ['cat', 'cot', 'cog', 'dog']);
