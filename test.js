@@ -33,4 +33,10 @@ const { dictionaryByLength: dict4 } = preprocessDictionary(words4);
 const chain5 = findChain('ab', 'cd', dict4);
 assert.strictEqual(chain5, null);
 
+// ensure dictionary words are normalized to lowercase
+const mixedWords = ['Cat', 'cot', 'cog', 'Dog'];
+const { dictionaryByLength: mixedDict } = preprocessDictionary(mixedWords);
+const chain6 = findChain('cat', 'dog', mixedDict);
+assert.deepStrictEqual(chain6, ['cat', 'cot', 'cog', 'dog']);
+
 console.log('All tests passed.');
