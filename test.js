@@ -37,7 +37,7 @@ async function run() {
 
     // test HTML formatting
     const html = formatChainHTML(['a', 'b']);
-    assert.strictEqual(html, '<ol class="chain"><li>a</li><li>b</li></ol>');
+    assert.strictEqual(html, '<ol class="chain"><li>a</li><li><span class="diff">b</span></li></ol>');
 
     // ensure dictionary words are normalized to lowercase
     const mixedWords = ['Cat', 'cot', 'cog', 'Dog'];

@@ -52,3 +52,7 @@ input {
 #output ol {
     padding-left: 20px;
 }
+
+.diff {
+    background-color: #fffbcc;
+}

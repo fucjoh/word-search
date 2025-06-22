@@ -4,7 +4,7 @@ This small browser-based tool searches for a chain of German words. A chain cons
 
 A simple favicon with a "W" helps identify the page in the browser tab.
 
-Open `index.html` in a browser, enter two words and press **Suchen**. If a chain exists it will be printed as a small ordered list, otherwise an error message will be shown.
+Open `index.html` in a browser, enter two words and press **Suchen**. If a chain exists it will be printed as a small ordered list. The letter that changes from one word to the next is highlighted with a subtle background color. If no chain is found an error message will be shown.
 
 ## Tests
 
