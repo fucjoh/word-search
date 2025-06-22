@@ -16,7 +16,6 @@ fetch('german.dic')
 
 const output = document.getElementById('output');
 
-document.getElementById('searchButton').addEventListener('click', function() {
     const value1 = document.getElementById('field1').value.trim();
     const value2 = document.getElementById('field2').value.trim();
 
@@ -34,4 +33,9 @@ document.getElementById('searchButton').addEventListener('click', function() {
             output.textContent = 'Keine Wortkette gefunden.';
         }
     }, 50);
+}
+
+document.getElementById('searchForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    performSearch();
 });
