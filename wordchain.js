@@ -52,6 +52,8 @@ function getNeighbors(word, dictByLength, visited) {
 
 function findChain(start, target, dictByLength) {
     if (start === target) return [start];
+    const startLen = start.length;
+    const targetLen = target.length;
     const queue = [[start]];
     const visited = new Set([start]);
 
@@ -61,6 +63,16 @@ function findChain(start, target, dictByLength) {
         const neighbors = getNeighbors(word, dictByLength, visited);
         for (const n of neighbors) {
             if (visited.has(n)) continue;
+            const nLen = n.length;
+
+            if (startLen < targetLen) {
+                if (nLen < word.length || nLen > targetLen) continue;
+            } else if (startLen > targetLen) {
+                if (nLen > word.length || nLen < targetLen) continue;
+            } else {
+                if (nLen !== word.length) continue;
+            }
+
             const newPath = path.concat(n);
             if (n === target) return newPath;
             visited.add(n);
