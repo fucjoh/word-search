@@ -48,6 +48,9 @@ async function run() {
     await loadDictionary('german.dic');
     assert.ok(getDictionary().length > 0);
 
+    const htmlContent = require('fs').readFileSync('index.html', 'utf-8');
+    assert.ok(htmlContent.includes('rel="icon"'), 'favicon link missing');
+
     console.log('All tests passed.');
 }
 
