@@ -39,42 +39,23 @@ function isOneEditApart(a, b) {
     return true;
 }
 
-const ALPHABET = 'abcdefghijklmnopqrstuvwxyzäöüß';
 
-function getNeighbors(word, dictionarySet, visited) {
-    const neighbors = new Set();
+function getNeighborsFromDictionary(word, dictionaryByLength, visited) {
+    const result = [];
     const len = word.length;
-
-    // substitution
-    for (let i = 0; i < len; i++) {
-        for (const ch of ALPHABET) {
-            if (ch === word[i]) continue;
-            const cand = word.slice(0, i) + ch + word.slice(i + 1);
-            if (!visited.has(cand) && dictionarySet.has(cand)) {
-                neighbors.add(cand);
+    const lengths = [len];
+    if (dictionaryByLength[len + 1]) lengths.push(len + 1);
+    if (len > 1 && dictionaryByLength[len - 1]) lengths.push(len - 1);
+    for (const l of lengths) {
+        const words = dictionaryByLength[l] || [];
+        for (const candidate of words) {
+            if (visited.has(candidate) || candidate === word) continue;
+            if (isOneEditApart(word, candidate)) {
+                result.push(candidate);
             }
         }
     }
-
-    // deletion
-    for (let i = 0; i < len; i++) {
-        const cand = word.slice(0, i) + word.slice(i + 1);
-        if (!visited.has(cand) && dictionarySet.has(cand)) {
-            neighbors.add(cand);
-        }
-    }
-
-    // insertion
-    for (let i = 0; i <= len; i++) {
-        for (const ch of ALPHABET) {
-            const cand = word.slice(0, i) + ch + word.slice(i);
-            if (!visited.has(cand) && dictionarySet.has(cand)) {
-                neighbors.add(cand);
-            }
-        }
-    }
-
-    return Array.from(neighbors);
+    return result;
 }
 
 function findChain(start, target, dictByLength, dictionarySet) {
@@ -87,7 +68,7 @@ function findChain(start, target, dictByLength, dictionarySet) {
     while (queue.length > 0) {
         const path = queue.shift();
         const word = path[path.length - 1];
-        const neighbors = getNeighbors(word, dictionarySet, visited);
+        const neighbors = getNeighborsFromDictionary(word, dictByLength, visited);
         for (const n of neighbors) {
             if (visited.has(n)) continue;
             const nLen = n.length;
@@ -113,7 +94,7 @@ if (typeof module !== 'undefined') {
     module.exports = {
         preprocessDictionary,
         isOneEditApart,
-        getNeighbors,
+        getNeighborsFromDictionary,
         findChain
     };
 }

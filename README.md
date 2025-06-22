@@ -1,6 +1,6 @@
 # Word Search
 
-This small browser-based tool searches for a chain of German words. A chain consists of words where each successive word differs from the previous one by exactly one added, removed or changed letter. The dictionary is loaded from `german.dic` on page load and the search button stays disabled until the load finished.
+This small browser-based tool searches for a chain of German words. A chain consists of words where each successive word differs from the previous one by exactly one added, removed or changed letter. The dictionary is loaded from `german.dic` on page load and the search button stays disabled until the load finished. The algorithm now checks candidate neighbors directly against the dictionary instead of generating all possible letter combinations.
 
 A simple favicon with a "W" helps identify the page in the browser tab.
 
