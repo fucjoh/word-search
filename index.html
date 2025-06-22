@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basisprojekt</title>
+    <title>Wortkettenfinder</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Suche</h1>
-    <form id="searchForm">
-        <input type="text" id="field1" placeholder="Eingabe 1">
-        <input type="text" id="field2" placeholder="Eingabe 2">
-        <button id="searchButton" type="submit" disabled>Suchen</button>
-    </form>
-    <div id="output"></div>
+    <div class="container">
+        <h1>Wortketten-Suche</h1>
+        <h2>Von "Haus" zu "Maus" – die witzige Wortreise</h2>
+        <p>Diese Seite findet eine Kette von Wörtern, bei der sich jeweils nur ein
+            Buchstabe ändert. Gib ein Start- und ein Zielwort ein und entdecke den
+            schnellsten Weg durch das Wörterbuch.</p>
+        <form id="searchForm">
+            <input type="text" id="field1" placeholder="Startwort (z.B. Haus)">
+            <input type="text" id="field2" placeholder="Zielwort (z.B. Maus)">
+            <button id="searchButton" type="submit" disabled>Suchen</button>
+        </form>
+        <div id="output"></div>
+    </div>
 
     <script src="wordchain.js"></script>
     <script src="main.js"></script>
