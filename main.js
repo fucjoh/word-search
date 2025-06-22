@@ -61,7 +61,7 @@ function performSearch() {
 
     output.textContent = "Suche läuft...";
     setTimeout(() => {
-        const chain = findChain(value1, value2, dictionaryByLength);
+        const chain = findChain(value1, value2, dictionaryByLength, dictionarySet);
         if (chain) {
             output.innerHTML = formatChainHTML(chain);
         } else {

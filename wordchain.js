@@ -39,21 +39,45 @@ function isOneEditApart(a, b) {
     return true;
 }
 
-function getNeighbors(word, dictByLength, visited) {
-    const res = [];
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyzäöüß';
+
+function getNeighbors(word, dictionarySet, visited) {
+    const neighbors = new Set();
     const len = word.length;
-    [len - 1, len, len + 1].forEach(l => {
-        const list = dictByLength[l] || [];
-        for (const cand of list) {
-            if (!visited.has(cand) && isOneEditApart(word, cand)) {
-                res.push(cand);
+
+    // substitution
+    for (let i = 0; i < len; i++) {
+        for (const ch of ALPHABET) {
+            if (ch === word[i]) continue;
+            const cand = word.slice(0, i) + ch + word.slice(i + 1);
+            if (!visited.has(cand) && dictionarySet.has(cand)) {
+                neighbors.add(cand);
             }
         }
-    });
-    return res;
+    }
+
+    // deletion
+    for (let i = 0; i < len; i++) {
+        const cand = word.slice(0, i) + word.slice(i + 1);
+        if (!visited.has(cand) && dictionarySet.has(cand)) {
+            neighbors.add(cand);
+        }
+    }
+
+    // insertion
+    for (let i = 0; i <= len; i++) {
+        for (const ch of ALPHABET) {
+            const cand = word.slice(0, i) + ch + word.slice(i);
+            if (!visited.has(cand) && dictionarySet.has(cand)) {
+                neighbors.add(cand);
+            }
+        }
+    }
+
+    return Array.from(neighbors);
 }
 
-function findChain(start, target, dictByLength) {
+function findChain(start, target, dictByLength, dictionarySet) {
     if (start === target) return [start];
     const startLen = start.length;
     const targetLen = target.length;
@@ -63,7 +87,7 @@ function findChain(start, target, dictByLength) {
     while (queue.length > 0) {
         const path = queue.shift();
         const word = path[path.length - 1];
-        const neighbors = getNeighbors(word, dictByLength, visited);
+        const neighbors = getNeighbors(word, dictionarySet, visited);
         for (const n of neighbors) {
             if (visited.has(n)) continue;
             const nLen = n.length;
