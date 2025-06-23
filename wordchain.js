@@ -1,32 +1,42 @@
+/**
+ * Preprocesses a list of words into lookup structures used by the search
+ * algorithm.
+ *
+ * @param {string[]} words List of dictionary words.
+ * @returns {{dictionarySet: Set<string>, dictionaryByLength: Record<number, string[]>}}
+ */
 function preprocessDictionary(words) {
-  // Convert all dictionary entries to lowercase to allow case-insensitive
-  // lookups.
   const normalized = words.map((w) => w.toLowerCase());
   const dictionarySet = new Set(normalized);
   const dictionaryByLength = {};
-  normalized.forEach((word) => {
+  for (const word of normalized) {
     const len = word.length;
-    if (!dictionaryByLength[len]) {
-      dictionaryByLength[len] = [];
-    }
+    if (!dictionaryByLength[len]) dictionaryByLength[len] = [];
     dictionaryByLength[len].push(word);
-  });
+  }
   return { dictionarySet, dictionaryByLength };
 }
 
+/**
+ * Determines whether two words differ by exactly one edit operation.
+ *
+ * @param {string} a First word.
+ * @param {string} b Second word.
+ * @returns {boolean} True if the words are exactly one edit apart.
+ */
 function isOneEditApart(a, b) {
   if (Math.abs(a.length - b.length) > 1) return false;
+
   if (a.length === b.length) {
     let diff = 0;
     for (let i = 0; i < a.length; i++) {
-      if (a[i] !== b[i]) {
-        diff++;
-        if (diff > 1) return false;
-      }
+      if (a[i] !== b[i] && ++diff > 1) return false;
     }
     return diff === 1;
   }
+
   if (a.length > b.length) [a, b] = [b, a];
+
   let i = 0,
     j = 0,
     diff = 0;
@@ -35,14 +45,21 @@ function isOneEditApart(a, b) {
       i++;
       j++;
     } else {
-      diff++;
+      if (++diff > 1) return false;
       j++;
-      if (diff > 1) return false;
     }
   }
   return true;
 }
 
+/**
+ * Finds all dictionary words that are one edit away from the given word.
+ *
+ * @param {string} word              Source word.
+ * @param {Record<number, string[]>} dictionaryByLength Dictionary indexed by word length.
+ * @param {Set<string>} visited      Words already explored.
+ * @returns {string[]} Neighboring words.
+ */
 function getNeighborsFromDictionary(word, dictionaryByLength, visited) {
   const result = [];
   const len = word.length;
@@ -53,23 +70,31 @@ function getNeighborsFromDictionary(word, dictionaryByLength, visited) {
     const words = dictionaryByLength[l] || [];
     for (const candidate of words) {
       if (visited.has(candidate) || candidate === word) continue;
-      if (isOneEditApart(word, candidate)) {
-        result.push(candidate);
-      }
+      if (isOneEditApart(word, candidate)) result.push(candidate);
     }
   }
   return result;
 }
 
+/**
+ * Performs a breadth-first search to find a chain from start to target.
+ *
+ * @param {string} start
+ * @param {string} target
+ * @param {Record<number, string[]>} dictByLength
+ * @param {Set<string>} dictionarySet
+ * @returns {string[] | null} Array containing the word chain, or null.
+ */
 function findChain(start, target, dictByLength, dictionarySet) {
   if (start === target) return [start];
   const startLen = start.length;
   const targetLen = target.length;
   const queue = [[start]];
+  let index = 0;
   const visited = new Set([start]);
 
-  while (queue.length > 0) {
-    const path = queue.shift();
+  while (index < queue.length) {
+    const path = queue[index++];
     const word = path[path.length - 1];
     const neighbors = getNeighborsFromDictionary(word, dictByLength, visited);
     for (const n of neighbors) {
@@ -80,8 +105,8 @@ function findChain(start, target, dictByLength, dictionarySet) {
         if (nLen < word.length || nLen > targetLen) continue;
       } else if (startLen > targetLen) {
         if (nLen > word.length || nLen < targetLen) continue;
-      } else {
-        if (nLen !== word.length) continue;
+      } else if (nLen !== word.length) {
+        continue;
       }
 
       const newPath = path.concat(n);
