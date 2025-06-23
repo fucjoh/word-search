@@ -21,3 +21,9 @@ node test.js
 ```
 
 The test script must pass before committing.
+
+Always run Prettier on modified files to ensure consistent formatting before each commit. This can be done with:
+
+```bash
+npx prettier -w <file(s)>
+```
