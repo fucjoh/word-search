@@ -1,28 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wortkettenfinder</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Wortketten-Suche</h1>
-        <h2>Von "Haus" zu "Maus" – die witzige Wortreise</h2>
-        <p>Diese Seite findet eine Kette von Wörtern, bei der sich jeweils nur ein
-            Buchstabe ändert. Gib ein Start- und ein Zielwort ein und entdecke den
-            schnellsten Weg durch das Wörterbuch.</p>
-        <form id="searchForm">
-            <input type="text" id="field1" placeholder="Startwort (z.B. Haus)">
-            <input type="text" id="field2" placeholder="Zielwort (z.B. Dino)">
-            <button id="searchButton" type="submit" disabled>Suchen</button>
-        </form>
-        <div id="output"></div>
+      <h1>Wortketten-Suche</h1>
+      <h2>Von "Haus" zu "Maus" – die witzige Wortreise</h2>
+      <p>
+        Diese Seite findet eine Kette von Wörtern, bei der sich jeweils nur ein
+        Buchstabe ändert. Gib ein Start- und ein Zielwort ein und entdecke den
+        schnellsten Weg durch das Wörterbuch.
+      </p>
+      <form id="searchForm">
+        <input type="text" id="field1" placeholder="Startwort (z.B. Haus)" />
+        <input type="text" id="field2" placeholder="Zielwort (z.B. Dino)" />
+        <button id="searchButton" type="submit" disabled>Suchen</button>
+      </form>
+      <div id="output"></div>
     </div>
 
     <script src="wordchain.js"></script>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
